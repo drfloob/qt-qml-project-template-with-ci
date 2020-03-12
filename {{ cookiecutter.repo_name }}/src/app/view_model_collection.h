@@ -14,8 +14,11 @@
 
 #include <memory>
 
-namespace project
+
+{% for ns in cpp_namespace %}
+namespace {{ ns }}
 {
+{% endfor %}
 class CliOptions;
 class GuiTests;
 class LoggingTags;
@@ -39,6 +42,9 @@ private:
 
     std::unique_ptr<GuiTests> m_guiTests;
 };
-} // namespace project
+
+{% for ns in cpp_namespace|reverse %}
+} // namespace {{ ns }}
+{% endfor %}
 
 #endif // PROJECT_APP_VIEW_MODEL_COLLECTION_H

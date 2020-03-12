@@ -7,7 +7,7 @@
 #
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: ubuntu:18.04
+image: {{ cookiecutter.docker_image }}
 
 pipelines:
   default:

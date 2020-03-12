@@ -15,8 +15,10 @@
 #    define strcasecmp _stricmp
 #endif
 
-namespace project
+{% for ns in cpp_namespace %}
+namespace {{ ns }}
 {
+{% endfor %}
 namespace
 {
     // QtMessageHandler is a typedef qtbase/src/corelib/global/qlogging.h
@@ -89,4 +91,6 @@ QmlMessageInterceptor::~QmlMessageInterceptor()
     original_handler = nullptr;
 }
 
-} // namespace project
+{% for ns in cpp_namespace|reverse %}
+} // namespace {{ ns }}
+{% endfor %}

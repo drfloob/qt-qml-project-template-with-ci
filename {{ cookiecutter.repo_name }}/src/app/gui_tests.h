@@ -1,18 +1,21 @@
 //
-// Copyright (c) 2020, 219 Design, LLC
+// Copyright (c) {{ cookiecutter.year }}, {{ cookiecutter.full_name }}
+// {{ cookiecutter.website }}
+// {{ cookiecutter.email }}
+//
 // See LICENSE.txt
 //
-// https://www.219design.com
-// Software | Electrical | Mechanical | Product Design
-//
+
 #ifndef PROJECT_APP_GUI_TESTS_H
 #define PROJECT_APP_GUI_TESTS_H
 
 #include <QQmlApplicationEngine>
 #include <QtCore/QObject>
 
-namespace project
+{% for ns in cpp_namespace %}
+namespace {{ ns }}
 {
+{% endfor %}
 class GuiTests : public QObject
 {
     Q_OBJECT
@@ -23,6 +26,8 @@ public:
     GuiTests( const GuiTests& ) = delete;
     GuiTests& operator=( const GuiTests& ) = delete;
 };
-} // namespace project
+{% for ns in cpp_namespace|reverse %}
+} // namespace {{ ns }}
+{% endfor %}
 
 #endif // PROJECT_APP_GUI_TESTS_H

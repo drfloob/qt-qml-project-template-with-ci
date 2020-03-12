@@ -1,11 +1,16 @@
 {
+    "repo_name": "MyProject",
     "project_name": "QT/QML Project Template With CI",
     "project_description": "A template for building a Qt/QML application with many batteries included",
     "project_license": "BSD 2-Clause License",
+    "cpp_namespace": "com.two_one_nine.my_project",
     "full_name": "219 Design, LLC",
     "website": "219design.com",
     "email": "getstarted@219design.com",
     "version": "0.1.0",
     "year": "2020",
-    "docker_image": "ubuntu:18.04"
+    "docker_image": "ubuntu:18.04",
+    "_copy_without_render": [
+        "*third_party"
+    ]
 }

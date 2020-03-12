@@ -19,7 +19,7 @@ CliOptions::CliOptions( const QCoreApplication& app )
     parser.addHelpOption();
 
     parser.addOptions( {
-        {{"g", GUI_TEST_CLI_OPT}, "run automated gui tests (app will SHUT DOWN soon after launch)"},
+            {{ '{{' }}"g", GUI_TEST_CLI_OPT}, "run automated gui tests (app will SHUT DOWN soon after launch)"},
     } );
 
     parser.process( app );

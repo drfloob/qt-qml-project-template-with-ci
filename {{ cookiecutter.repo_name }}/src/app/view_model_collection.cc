@@ -14,8 +14,10 @@
 #include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
 
-namespace project
+{% for ns in cpp_namespace %}
+namespace {{ ns }}
 {
+{% endfor %}
 ViewModelCollection::ViewModelCollection( const QGuiApplication& app )
     : m_opts( std::make_unique<CliOptions>( app ) ), m_qmlLogger( std::make_unique<QmlMessageInterceptor>() ), m_logging( std::make_unique<LoggingTags>( *m_opts ) )
 {
@@ -40,4 +42,6 @@ void ViewModelCollection::ExportContextPropertiesToQml( QQmlApplicationEngine* e
     }
 }
 
-} // namespace project
+{% for ns in cpp_namespace|reverse %}
+} // namespace {{ ns }}
+{% endfor %}

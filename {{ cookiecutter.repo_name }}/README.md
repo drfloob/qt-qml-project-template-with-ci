@@ -1,3 +1,11 @@
+## {{ cookiecutter.project_name }}
+
+{{ cookiecutter.project_description }}
+
+
+
+----
+
 ## Qt/QML Project Template by 219 Design, LLC
 
 A template for building a Qt/QML application with **many batteries included**,

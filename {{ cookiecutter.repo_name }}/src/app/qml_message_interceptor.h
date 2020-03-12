@@ -10,8 +10,10 @@
 
 #include <QObject>
 
-namespace project
+{% for ns in cpp_namespace %}
+namespace {{ ns }}
 {
+{% endfor %}
 class QmlMessageInterceptor
 {
 public:
@@ -20,6 +22,8 @@ public:
     ~QmlMessageInterceptor();
 };
 
-} // namespace project
+{% for ns in cpp_namespace|reverse %}
+} // namespace {{ ns }}
+{% endfor %}
 
 #endif // PROJECT_APP_QML_MESSAGE_INTERCEPTOR_H

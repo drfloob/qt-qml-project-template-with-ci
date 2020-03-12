@@ -1,10 +1,11 @@
 //
-// Copyright (c) 2020, 219 Design, LLC
+// Copyright (c) {{ cookiecutter.year }}, {{ cookiecutter.full_name }}
+// {{ cookiecutter.website }}
+// {{ cookiecutter.email }}
+//
 // See LICENSE.txt
 //
-// https://www.219design.com
-// Software | Electrical | Mechanical | Product Design
-//
+
 #include "gui_tests.h"
 
 #include <QCoreApplication>
@@ -12,8 +13,10 @@
 
 #include "util-assert.h"
 
-namespace project
+{% for ns in cpp_namespace %}
+namespace {{ ns }}
 {
+{% endfor %}
 namespace
 {
     // Don't let this discourage us from ever renaming our qml filenames. This
@@ -35,4 +38,6 @@ GuiTests::GuiTests( const QQmlApplicationEngine& engine )
 
 GuiTests::~GuiTests() = default;
 
-} // namespace project
+{% for ns in cpp_namespace|reverse %}
+} // namespace {{ ns }}
+{% endfor %}
