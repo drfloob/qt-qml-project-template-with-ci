@@ -19,7 +19,7 @@ find src/ -type f | xargs sed -i "/Software | Electrical | Mechanical | Product 
 FILE_LIST=$(grep -l -E -R --binary-files=without-match '^namespace project' src)
 echo "$FILE_LIST" | xargs -I ';;;' perl -0777 -i -pe "s/namespace project\n\{/{% set nslist = cookiecutter.cpp_namespace.split('.') %}\n{% for ns in nslist %}\nnamespace {{ ns }}\n{\n{% endfor %}/g" ';;;'
 echo "$FILE_LIST" | xargs -I ';;;' sed -i "s#^} // namespace project#{% for ns in nslist %}\n} // namespace {{ ns }}\n{% endfor %}#g" ';;;'
-grep -l -R --binary-files=without-match "project::" src | xargs sed -i "s/project::/{{ cookiecutter.cpp_namespace }}::/g"
+grep -l -R --binary-files=without-match "project::" src | xargs sed -i "s/project::/{{ cookiecutter.cpp_namespace | replace('.', '::') }}::/g"
 
 # Customizes the App.Desktop entry
 sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
