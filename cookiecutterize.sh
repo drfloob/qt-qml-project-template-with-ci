@@ -16,7 +16,7 @@ find src/ -type f | xargs sed -i "/Software | Electrical | Mechanical | Product 
 
 # Sets a custom namespace for the project
 grep -l -E -R --binary-files=without-match '^namespace project' src |\
-    xargs sed -Ei -e "s/^\s*namespace project\s*$/{% set nslist = cookiecutter.cpp_namespace.split('.') %}\n{% for ns in nslist %}\nnamespace {{ ns }}/g"\
+    xargs sed -Ei -e "s/^\s*namespace project\s*$/{% set nslist = cookiecutter.cpp_namespace.split('.') %}\n{% for ns in nslist %}\nnamespace {{ ns }}\n{% endfor %}/g"\
     -e "s#^} // namespace project#{% for ns in nslist %}\n} // namespace {{ ns }}\n{% endfor %}#g"
 
 # Customizes the App.Desktop entry
@@ -27,5 +27,5 @@ sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
 # Finally, moves the project folder to a cookiecutter namespace
 mkdir "{{ cookiecutter.repo_name }}"
 git mv -k * "{{ cookiecutter.repo_name }}"
-git mv -k "{{ cookiecutter.repo_name }}/cookiecutter*" .
+git mv -k "{{ cookiecutter.repo_name }}"/cookiecutter* .
 git mv .clang-format .gitattributes .github .gitignore .gitmodules .qmake.conf "{{ cookiecutter.repo_name }}"
