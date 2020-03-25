@@ -21,10 +21,11 @@ echo "$FILE_LIST" | xargs -I ';;;' perl -0777 -i -pe "s/namespace project\n\{/{%
 echo "$FILE_LIST" | xargs -I ';;;' sed -i "s#^} // namespace project#{% for ns in nslist %}\n} // namespace {{ ns }}\n{% endfor %}#g" ';;;'
 grep -l -R --binary-files=without-match "project::" src | xargs sed -i "s/project::/{{ cookiecutter.cpp_namespace | replace('.', '::') }}::/g"
 
-# Customizes the App.Desktop entry
+# Customizes the App.Desktop entry and the Window title
 sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
     -e "s/Comment=.*/Comment={{ cookiecutter.project_description }}/g"\
     tools/AppImage/app.desktop
+sed -i -e "s/Hello World/Hello {{ cookiecutter.repo_name }}/g" src/lib/qml/homepage.qml
 
 # You can't assume cookiecutter will be run in the same git repo, so we have to set things up again
 echo -e "git init\ngit submodule add https://github.com/219-design/build_qt_binaries.git\ngit submodule update --init --recursive" >> tools/ci/provision.sh
