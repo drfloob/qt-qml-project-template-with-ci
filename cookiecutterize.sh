@@ -27,4 +27,5 @@ sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
 # Finally, moves the project folder to a cookiecutter namespace
 mkdir "{{ cookiecutter.repo_name }}"
 git mv -k * "{{ cookiecutter.repo_name }}"
+git mv -k "{{ cookiecutter.repo_name }}/cookiecutter*" .
 git mv .clang-format .gitattributes .github .gitignore .gitmodules .qmake.conf "{{ cookiecutter.repo_name }}"
