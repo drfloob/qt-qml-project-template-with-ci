@@ -12,7 +12,8 @@
 #include <QQmlApplicationEngine>
 #include <QtCore/QObject>
 
-{% for ns in cpp_namespace %}
+{% set nslist = cookiecutter.cpp_namespace.split('.') %}
+{% for ns in nslist %}
 namespace {{ ns }}
 {
 {% endfor %}
@@ -26,7 +27,7 @@ public:
     GuiTests( const GuiTests& ) = delete;
     GuiTests& operator=( const GuiTests& ) = delete;
 };
-{% for ns in cpp_namespace|reverse %}
+{% for ns in nslist %}
 } // namespace {{ ns }}
 {% endfor %}
 

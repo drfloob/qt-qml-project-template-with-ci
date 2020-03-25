@@ -10,7 +10,8 @@
 
 #include <QObject>
 
-{% for ns in cpp_namespace %}
+{% set nslist = cookiecutter.cpp_namespace.split('.') %}
+{% for ns in nslist %}
 namespace {{ ns }}
 {
 {% endfor %}
@@ -22,7 +23,7 @@ public:
     ~QmlMessageInterceptor();
 };
 
-{% for ns in cpp_namespace|reverse %}
+{% for ns in nslist %}
 } // namespace {{ ns }}
 {% endfor %}
 

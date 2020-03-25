@@ -14,7 +14,8 @@
 #include "src/lib/resource_helper.h"
 #include "src/lib/resources.h"
 
-{% for ns in cpp_namespace %}
+{% set nslist = cookiecutter.cpp_namespace.split('.') %}
+{% for ns in nslist %}
 namespace {{ ns }}
 {
 {% endfor %}
@@ -42,6 +43,6 @@ void ViewModelCollection::ExportContextPropertiesToQml( QQmlApplicationEngine* e
     }
 }
 
-{% for ns in cpp_namespace|reverse %}
+{% for ns in nslist %}
 } // namespace {{ ns }}
 {% endfor %}

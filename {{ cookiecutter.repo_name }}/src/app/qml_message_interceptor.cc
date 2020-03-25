@@ -15,7 +15,8 @@
 #    define strcasecmp _stricmp
 #endif
 
-{% for ns in cpp_namespace %}
+{% set nslist = cookiecutter.cpp_namespace.split('.') %}
+{% for ns in nslist %}
 namespace {{ ns }}
 {
 {% endfor %}
@@ -91,6 +92,6 @@ QmlMessageInterceptor::~QmlMessageInterceptor()
     original_handler = nullptr;
 }
 
-{% for ns in cpp_namespace|reverse %}
+{% for ns in nslist %}
 } // namespace {{ ns }}
 {% endfor %}

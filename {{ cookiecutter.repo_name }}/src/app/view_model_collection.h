@@ -15,7 +15,8 @@
 #include <memory>
 
 
-{% for ns in cpp_namespace %}
+{% set nslist = cookiecutter.cpp_namespace.split('.') %}
+{% for ns in nslist %}
 namespace {{ ns }}
 {
 {% endfor %}
@@ -43,7 +44,7 @@ private:
     std::unique_ptr<GuiTests> m_guiTests;
 };
 
-{% for ns in cpp_namespace|reverse %}
+{% for ns in nslist %}
 } // namespace {{ ns }}
 {% endfor %}
 

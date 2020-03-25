@@ -13,7 +13,8 @@
 
 #include "util-assert.h"
 
-{% for ns in cpp_namespace %}
+{% set nslist = cookiecutter.cpp_namespace.split('.') %}
+{% for ns in nslist %}
 namespace {{ ns }}
 {
 {% endfor %}
@@ -38,6 +39,6 @@ GuiTests::GuiTests( const QQmlApplicationEngine& engine )
 
 GuiTests::~GuiTests() = default;
 
-{% for ns in cpp_namespace|reverse %}
+{% for ns in nslist %}
 } // namespace {{ ns }}
 {% endfor %}
