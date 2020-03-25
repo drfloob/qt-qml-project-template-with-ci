@@ -15,19 +15,20 @@ grep -l -E -R --binary-files=without-match 'Copyright \(c\) [0-9]{4}, 219 Design
 find src/ -type f | xargs sed -i "/Software | Electrical | Mechanical | Product Design/d"
 
 ## Sets a custom namespace for the project
-# grep -l -E -R --binary-files=without-match '^namespace project' src |\
-#    xargs sed -Ei -e "s/^namespace project$/{% set nslist = cookiecutter.cpp_namespace.split('.') %}\n{% for ns in nslist %}\nnamespace {{ ns }}\n{\n{% endfor %}/g"\
-#    -e "s#^} // namespace project#{% for ns in nslist %}\n} // namespace {{ ns }}\n{% endfor %}#g"
 ## Unfortunately sed doesn't play nicely with multi-line matches. Perl to the rescue
 FILE_LIST=$(grep -l -E -R --binary-files=without-match '^namespace project' src)
 echo "$FILE_LIST" | xargs -I ';;;' perl -0777 -i -pe "s/namespace project\n\{/{% set nslist = cookiecutter.cpp_namespace.split('.') %}\n{% for ns in nslist %}\nnamespace {{ ns }}\n{\n{% endfor %}/g" ';;;'
 echo "$FILE_LIST" | xargs -I ';;;' sed -i "s#^} // namespace project#{% for ns in nslist %}\n} // namespace {{ ns }}\n{% endfor %}#g" ';;;'
-
+grep -l -R --binary-files=without-match "project::" src | xargs sed -i "s/project::/{{ cookiecutter.cpp_namespace }}::/g"
 
 # Customizes the App.Desktop entry
 sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
     -e "s/Comment=.*/Comment={{ cookiecutter.project_description }}/g"\
     tools/AppImage/app.desktop
+
+# You can't assume cookiecutter will be run in the same git repo, so we have to set things up again
+echo -e "git submodule add https://github.com/219-design/build_qt_binaries.git\n" >> tools/ci/provision.sh
+rm -r build_qt_binaries
 
 # Finally, moves the project folder to a cookiecutter namespace
 mkdir "{{ cookiecutter.repo_name }}"
