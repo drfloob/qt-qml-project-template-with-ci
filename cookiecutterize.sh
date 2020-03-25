@@ -27,8 +27,8 @@ sed -i -e "s/Name=.*/Name={{ cookiecutter.project_name }}/g"\
     tools/AppImage/app.desktop
 
 # You can't assume cookiecutter will be run in the same git repo, so we have to set things up again
-echo -e "git submodule add https://github.com/219-design/build_qt_binaries.git\n" >> tools/ci/provision.sh
-rm -r build_qt_binaries
+echo -e "git init\ngit submodule add https://github.com/219-design/build_qt_binaries.git\ngit submodule update --init --recursive" >> tools/ci/provision.sh
+rm -r build_qt_binaries .gitmodules
 
 # Finally, moves the project folder to a cookiecutter namespace
 mkdir "{{ cookiecutter.repo_name }}"
