@@ -48,4 +48,7 @@ jobs:
       run: sed -e 's/azure.archive.ubuntu.com/us.archive.ubuntu.com/g' -e t -e d /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/nonazure.list
 
     - name: cutterize and test
+      env:
+        COOKIECUTTER_PUSH_USER: ${{ secrets.COOKIECUTTER_PUSH_USER }}
+        COOKIECUTTER_PUSH_TOKEN: ${{ secrets.COOKIECUTTER_PUSH_TOKEN }}
       run: ./cookiecutter/cutterize_and_test.sh
