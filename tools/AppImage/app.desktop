@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=QT/QML Project Template With CI
+Exec=app
+Icon=app
+# available categories, see: https://specifications.freedesktop.org/menu-spec/latest/apa.html
+Categories=Utility;
