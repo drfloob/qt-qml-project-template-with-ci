@@ -7,7 +7,7 @@ CUR_GIT_ROOT=$(git rev-parse --show-toplevel)
 cd $CUR_GIT_ROOT
 
 # Escapes literal {{ in the code. See https://jinja.palletsprojects.com/en/2.11.x/templates/#escaping
-grep -l -R --binary-files=without-match "{{" src | xargs sed -i "s/{{/{{ '{{' }}/g"
+grep -l -R --binary-files=without-match "{{" src .github | xargs sed -i "s/{{/{{ '{{' }}/g"
 
 # Modifies the copyright
 git mv LICENSE.txt 219Design.LICENSE.txt
