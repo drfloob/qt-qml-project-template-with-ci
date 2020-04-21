@@ -12,7 +12,9 @@ ln -s .qmake.conf qmake.conf
 ln -s .clang-format clang-format
 
 git init
+git add .
 git submodule add https://github.com/219-design/build_qt_binaries.git
 git submodule update --init --recursive
+git commit -m "init"
 
 ./tools/formatters/enforce_clang_format.sh
